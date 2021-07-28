@@ -15,7 +15,7 @@ This repo is the official implementation for [Adversarial Image Generation and T
 Every executable file has a name that starts with a number, and this number also indicates the proper order to run the corresponding file starting from 0 to 10.
 Please substitute '/your_path_to_main_dir/' to your actual path to the main directory in the executable files.
 
-We prepared the generated adversarial images for you to view. "Adversarial_Image_Display.ipynb" is a static example to show how you can view these images. If you would like to view more, please go to https://drive.google.com/drive/folders/1-8zfUuf0SCi5NTo40NRaFDH8tosGaK2C?usp=sharing. A folder named "view_adversarial_image" should be under "shared with me", please right-click this folder and select "add shortcut to drive. Then select "My Drive" and click "ADD SHORTCUT". Then you can easily open "Adversarial_Image_Display.ipynb" in the folder and view the images by running the code block.
+We prepared the generated adversarial images for you to view. "Adversarial_Image_Display.ipynb" is a static example to show how you can view these images. If you would like to view more, please go to https://drive.google.com/drive/folders/1-8zfUuf0SCi5NTo40NRaFDH8tosGaK2C?usp=sharing. A folder named "view_adversarial_image" should be under "shared with me", please right-click this folder and select "add shortcut to drive". Then select "My Drive" and click "ADD SHORTCUT". Then you can easily open "Adversarial_Image_Display.ipynb" in the folder and view the images by running the code block.
 
 Step 1:
 
