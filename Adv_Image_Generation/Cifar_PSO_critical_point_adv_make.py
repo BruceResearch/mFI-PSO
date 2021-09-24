@@ -199,42 +199,43 @@ def classify(img,probs,img_name,color = True ,correct_class=None, target_class=N
 def PSO_critical_point(pic_num,pixel_FI_array, m ,correct_class,target_class ,road_str_adv,sheet_id =2 ):
     # 加载选定图片
     if sheet_id == 3:
-        x_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_test_image.npy').reshape(-1, 32, 32, 3)  # (10000, 32 32, 3)
-        y_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_test_label.npy')
+        x_test = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_test_image.npy').reshape(-1, 32, 32, 3)  # (10000, 32 32, 3)
+        y_test = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_test_label.npy')
         x_adv = x_test[int(pic_num)]    # x_adv (32, 32, 3)
         x_adv = x_adv/255
         y_adv = y_test[int(pic_num)]
     else:
-        x_train = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_train_image.npy').reshape(-1, 32, 32, 3)  # (50000, 32 32, 3)
-        y_train = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_train_label.npy')  # (50000, 10)
+        x_train = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_train_image.npy').reshape(-1, 32, 32, 3)  # (50000, 32 32, 3)
+        y_train = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_train_label.npy')  # (50000, 10)
         x_adv = x_train[int(pic_num)]   # x_adv (32, 32, 3)
         x_adv = x_adv/255
         y_adv = y_train[int(pic_num)]
 
 
+    # 初始化参数
+    posi_m = posi_m_func(pixel_FI_array,m)   # 扰动添加位置    # (m,1)      # print('position_of_m:',posi_m)
 
-    posi_m = posi_m_func(pixel_FI_array,m)    # print('position_of_m:',posi_m)
-
-
-    dist_x_limits = disturb_limits(x_adv.reshape(1,-1))          
-    print('position_of_m and perturbation limit：')
+    # 像素点扰动范围
+    dist_x_limits = disturb_limits(x_adv.reshape(1,-1))          # 扰动位置的扰动上下限,即解空间范围
+    print('position_of_m以及扰动范围分别为：')
     for i in range(m):
         posi_m_i = posi_m[i][0]
         print('(',i,'/',m,'): position: ',posi_m_i,'-->limit:',dist_x_limits[posi_m_i][0],dist_x_limits[posi_m_i][1])
 
+    # 初始化数值
+    x_pop_temp = org_pop_m(dist_x_limits,posi_m,m,pop_size)        # 生成鸟群，初始化扰动值
 
-    x_pop_temp = org_pop_m(dist_x_limits,posi_m,m,pop_size)       
-
-    v = np.random.rand(pop_size, m) * 0.1 
+    v = np.random.rand(pop_size, m) * 0.1  # 初始化粒子群速度
 
     g_best_result = np.zeros((1,2+m)) + 10000000
     p_best_result = np.zeros((pop_size,2+m)) +10000000
 
     for i in range(iter_num):
-        
+        # 解码基因，表现型
+        # 计算评分（适应度）
         result_in_iter = calculate_object_score(m,posi_m,target_class,correct_class,x_pop_temp, x_adv,p_erro,a1=a_1,a2=a_2)
 
-      
+        # results_best_in_iter 记录每一次迭代最优的结果[Q_score,situation,disturb_x]和 pop_array
         p_best_result = personal_best(p_best_result,result_in_iter)
 
         best_result_in_iter = iter_best(result_in_iter)
@@ -251,11 +252,11 @@ def PSO_critical_point(pic_num,pixel_FI_array, m ,correct_class,target_class ,ro
     g_best_result_final = global_best(g_best_result, best_result_final)
     print('final_result:', g_best_result_final[0][:2])
 
-
+    # 函数最后输出的信息
     x_adv_final_info_list = []
     x_adv_final_info_list.append(g_best_result_final[0][1])   #   #    [0 :   situation,  1~3072: adv_final ]
 
-
+    # 最终值代入，添加扰动来制作对抗样本：
     x_adv_flatten = x_adv.reshape((1, -1))
     x_adv_final = np.zeros((1, 3072))
 
@@ -263,7 +264,7 @@ def PSO_critical_point(pic_num,pixel_FI_array, m ,correct_class,target_class ,ro
 
         x_adv_final[0][j] = x_adv_flatten[0][j]
         if j in posi_m:
-            index_j_in_m = np.where(j == posi_m)
+            index_j_in_m = np.where(j == posi_m)  # 找到对应扰动值位置
             result_index = index_j_in_m[0][0] + 2
             a = x_adv_final[0][j] 
             x_adv_final[0][j] = x_adv_flatten[0][j] + g_best_result_final[0][result_index]  # # 加上扰动后的样本
@@ -273,11 +274,62 @@ def PSO_critical_point(pic_num,pixel_FI_array, m ,correct_class,target_class ,ro
         x_adv_final_info_list.append(x_adv_final[0][j])   #  #    [0 :   situation,  1~3072: adv_final ]
 
 
-   
+    # 模型预测输入  (1, 10)
     y_adv_pre = resnet32.predict(x_adv_final.reshape((1,32,32,3))*255)
-    print('prediction distribution after perturbation：',y_adv_pre)
+    print('添加扰动后制作的adv输出概率：',y_adv_pre)
+    if np.argmax(y_adv_pre, axis =1) == correct_class:
+        y_adv_pre1 = y_adv_pre
+        p_shape = y_adv_pre1.shape
+        print(p_shape)
+        y_adv_pre1[0,np.argmax(y_adv_pre1, axis =1)] = np.min(y_adv_pre, axis =1)
+        target_class = np.argmax(y_adv_pre1, axis =1)
+        for i in range(iter_num*4):
+            # 解码基因，表现型
+            # 计算评分（适应度）
+            result_in_iter = calculate_object_score(m,posi_m,target_class,correct_class,x_pop_temp, x_adv,p_erro,a1=a_1,a2=a_2)
 
+            # results_best_in_iter 记录每一次迭代最优的结果[Q_score,situation,disturb_x]和 pop_array
+            p_best_result = personal_best(p_best_result,result_in_iter)
 
+            best_result_in_iter = iter_best(result_in_iter)
+
+            g_best_result = global_best(g_best_result, best_result_in_iter)
+            print('step_'+str(i)+'_global_best_result',g_best_result)
+
+            x_pop_temp = evolve(m,posi_m, w, v, c1, c2,x_pop_temp ,p_best_result, best_result_in_iter,dist_x_limits)
+
+        result_final = calculate_object_score(m,posi_m,target_class,correct_class,x_pop_temp, x_adv,p_erro,a1=a_1,a2=a_2)
+
+        best_result_final = iter_best(result_final)
+
+        g_best_result_final = global_best(g_best_result, best_result_final)
+        print('final_result:', g_best_result_final[0][:2])
+
+        # 函数最后输出的信息
+        x_adv_final_info_list = []
+        x_adv_final_info_list.append(g_best_result_final[0][1])   #   #    [0 :   situation,  1~3072: adv_final ]
+
+        # 最终值代入，添加扰动来制作对抗样本：
+        x_adv_flatten = x_adv.reshape((1, -1))
+        x_adv_final = np.zeros((1, 3072))
+
+        for j in range(3072):
+
+            x_adv_final[0][j] = x_adv_flatten[0][j]
+            if j in posi_m:
+                index_j_in_m = np.where(j == posi_m)  # 找到对应扰动值位置
+                result_index = index_j_in_m[0][0] + 2
+                a = x_adv_final[0][j] 
+                x_adv_final[0][j] = x_adv_flatten[0][j] + g_best_result_final[0][result_index]  # # 加上扰动后的样本
+                if x_adv_final[0][j] > 100:
+                    x_adv_final[0][j] = a
+
+            x_adv_final_info_list.append(x_adv_final[0][j])   #  #    [0 :   situation,  1~3072: adv_final ]
+        
+        y_adv_pre = resnet32.predict(x_adv_final.reshape((1,32,32,3))*255)
+        print('添加扰动后制作的adv输出概率：',y_adv_pre)
+   
+    # 显示对抗样本图片：
     img_name_adv = road_str_adv
     classify(x_adv_final.reshape((32,32,3)), y_adv_pre[0], img_name_adv, color=False, correct_class=correct_class, target_class=target_class,save_flag=True)
 
@@ -286,6 +338,8 @@ def PSO_critical_point(pic_num,pixel_FI_array, m ,correct_class,target_class ,ro
 
     print( x_adv_info.shape)
 
-    return  x_adv_final, y_adv   
+    return  x_adv_final, y_adv   # 注意：对于cifar图片，扰动和制作的adv像素的取值都被处理在[0,1]之间，在投入对抗训练的时候需要还原到[0,255]区间上
+
+
 
 

@@ -28,7 +28,7 @@ for i_pic in range(cut_start,cut_end,1):
                                                       sheet_id=sheet_id)  ## (1,3072)
 
 
-    flag = 0.1
+    flag = 0.01
     pixel_FI_array_flag = np.zeros((1,3072))
     for i in range(3072):
         if FI_adv_pred_array[0][i]>= flag:

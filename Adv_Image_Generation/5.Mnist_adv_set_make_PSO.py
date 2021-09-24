@@ -22,7 +22,7 @@ for i_pic in range(cut_start,cut_end,1):  #  [0:correct_class, 1:target_class, 2
     # compute pixel FI
     FI_adv_pred_array = Mnist_pixel_FI.mnist_pixel_FI(pic_num=pic_num_i, target_class=target_class_i, sheet_id=sheet_id)  ## (1,784)
 
-    flag = 0.1
+    flag = 0.01
     pixel_FI_array_flag = np.zeros((1,784))
     for i in range(784):
         if FI_adv_pred_array[0][i]>= flag:

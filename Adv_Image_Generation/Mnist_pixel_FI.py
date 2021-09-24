@@ -14,7 +14,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 K.set_learning_phase(0)
 
-# 参数
+
 epsilon = 1e-3       
 n_class = 10         
 
@@ -32,10 +32,9 @@ def mnist_pixel_FI(road_str,pic_num,target_class,sheet_id = 2):
         y_adv = y_train[int(pic_num)]
 
 
-    # 载入模型
+
     resnet32 = load_model('/your_path_to_main_dir/FI_Image_Choose/my_resnet_32_mnist.h5')
 
-    # 计算pixel_FI（一通道）
     grad_K = tf.concat(axis=1, values=[tf.concat(axis=0, values=[K.flatten(b)[..., None] for b in K.gradients(resnet32.output[0, k], resnet32.input)]) for k in range(n_class)])
     iterate = K.function([resnet32.input], [grad_K, resnet32.output])
 
@@ -70,14 +69,13 @@ def mnist_pixel_FI(road_str,pic_num,target_class,sheet_id = 2):
             FI_adv_pred_array[0][pixel] = nabla_f_pred @ nabla_f_pred.T
 
 
-    # 绘图
+
     fig = plt.figure(figsize=(10,5))
 
-    # 原图
+
     ax1 = fig.add_subplot(1,3,1)
     ax1.imshow(x_adv.reshape((28, 28)),cmap='Greys_r')   #(M, N, 3): an image with RGB values (0-1 float or 0-255 int).
 
-    # 模型预测概率分布
     ax2 = fig.add_subplot(1, 3, 2)
     p = pred_P[0]  # p为img的网络输出概率
     correct_class = int(np.argmax(y_adv))
