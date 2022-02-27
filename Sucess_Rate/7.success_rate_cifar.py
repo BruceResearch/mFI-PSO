@@ -23,6 +23,7 @@ weight_decay       = 1e-4
 
 log_filepath = '\my_resnet_32_cifar_mix_adv'
 
+your_path = '/your_path_to_main_dir'
 
 def scheduler(epoch):
     if epoch < 10:
@@ -32,14 +33,14 @@ def scheduler(epoch):
     return 0.001
 
 # data
-x_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_train/cifar_train_adv_x.npy').reshape(-1,32,32,3)   
-y_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_train/cifar_train_adv_y.npy').reshape(-1,10)                   
+x_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_train/cifar_train_adv_x.npy').reshape(-1,32,32,3)   
+y_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_train/cifar_train_adv_y.npy').reshape(-1,10)                   
 
 print(x_train.shape)
 print(y_train.shape)
 
-x_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_test/cifar_test_adv_x.npy').reshape(-1,32,32,3)   
-y_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_test/cifar_test_adv_y.npy').reshape(-1,10)                     
+x_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_test/cifar_test_adv_x.npy').reshape(-1,32,32,3)   
+y_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_test/cifar_test_adv_y.npy').reshape(-1,10)                     
 
 print(x_test.shape)
 print(y_test.shape)
@@ -141,7 +142,7 @@ def res_32(img_input):
     return x
 
 # load model
-resnet = load_model('/your_path_to_main_dir/FI_Image_Choose/my_resnet_32_cifar.h5')
+resnet = load_model(str(your_path) + '/FI_Image_Choose/my_resnet_32_cifar.h5')
 
 #test for success rate 
 train_result= resnet.evaluate(x_train,y_train, batch_size=128)
@@ -159,5 +160,5 @@ subset_of_success_x = np.concatenate(subset_of_success_x, axis=0)
 subset_of_success_y = np.concatenate(subset_of_success_y, axis=0)
 print((subset_of_success_x).shape)
 print((subset_of_success_y).shape)
-np.save('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_train/subset_of_success_x.npy',subset_of_success_x)
-np.save('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Cifar/combine_train/subset_of_success_y.npy',subset_of_success_y)
+np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_train/subset_of_success_x.npy',subset_of_success_x)
+np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/combine_train/subset_of_success_y.npy',subset_of_success_y)
