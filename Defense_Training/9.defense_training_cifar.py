@@ -27,7 +27,7 @@ weight_decay       = 1e-4
 
 log_filepath = '\my_resnet_32_cifar_mix_adv'
 
-
+your_path = '/your_path_to_main_dir'
 
 def scheduler(epoch):
     if epoch < 15:
@@ -37,18 +37,18 @@ def scheduler(epoch):
     return 0.001
 
 # data
-x_train = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_train/x_mix_train.npy') 
-y_train = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_train/y_mix_train.npy')                     
+x_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_train/x_mix_train.npy') 
+y_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_train/y_mix_train.npy')                     
 
 
-x_test = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_test/x_mix_test.npy')  
-y_test = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_test/y_mix_test.npy')
+x_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_test/x_mix_test.npy')  
+y_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_test/y_mix_test.npy')
 
-x_adv_test = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_test/cifar_test_adv_x.npy')
-y_adv_test = np.load('/scratch/qj2022/our_adversarial/adv_info/adv_Cifar/fix4/combine_test/cifar_test_adv_y.npy')
+x_adv_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_test/cifar_test_adv_x.npy')
+y_adv_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/fix4/combine_test/cifar_test_adv_y.npy')
 
-x_original_test = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_test_image.npy').reshape(-1,32,32,3) 
-y_original_test = np.load('/scratch/qj2022/our_adversarial/Cifar_set/Cifar_test_label.npy')    
+x_original_test = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_test_image.npy').reshape(-1,32,32,3) 
+y_original_test = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_test_label.npy')    
 
 def res_32(img_input):
     # input: 32x32x3 output: 32x32x16
@@ -155,7 +155,7 @@ def res_32(img_input):
     return x
 
 # 载入模型
-resnet = load_model('/your_path_to_main_dir/FI_Image_Choose/my_resnet_32_cifar.h5')
+resnet = load_model(str(your_path) + '/FI_Image_Choose/my_resnet_32_cifar.h5')
 
 # set optimizer
 sgd = optimizers.SGD(lr=.001, momentum=0.9, nesterov=True)

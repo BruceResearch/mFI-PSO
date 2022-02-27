@@ -25,6 +25,7 @@ iterations         = 61220 // batch_size + 1
 weight_decay       = 1e-4
 
 log_filepath = '\my_resnet_32_mnist_mix_adv'
+your_path = '/your_path_to_main_dir'
 
 def scheduler(epoch):
     if epoch < 10:
@@ -35,20 +36,20 @@ def scheduler(epoch):
 
 
 # load data
-x_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_train/x_mix_train.npy').reshape(-1,28,28,1) 
-y_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_train/y_mix_train.npy')                     
+x_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_train/x_mix_train.npy').reshape(-1,28,28,1) 
+y_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_train/y_mix_train.npy')                     
 
-x_adv_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_train/subset_of_success_x.npy').reshape(-1,28,28,1) 
-y_adv_train = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_train/subset_of_success_y.npy')
+x_adv_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_train/subset_of_success_x.npy').reshape(-1,28,28,1) 
+y_adv_train = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_train/subset_of_success_y.npy')
 
-x_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_test/x_mix_test.npy').reshape(-1,28,28,1) 
-y_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_test/y_mix_test.npy')
+x_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_test/x_mix_test.npy').reshape(-1,28,28,1) 
+y_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_test/y_mix_test.npy')
 
-x_adv_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_test/Mnist_test_adv_x.npy').reshape(-1,28,28,1)
-y_adv_test = np.load('/your_path_to_main_dir/FI_Image_Choose/adv_info/adv_Mnist/combine_test/Mnist_test_adv_y.npy')
+x_adv_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_test/Mnist_test_adv_x.npy').reshape(-1,28,28,1)
+y_adv_test = np.load(str(your_path) + '/FI_Image_Choose/adv_info/adv_Mnist/combine_test/Mnist_test_adv_y.npy')
 
-x_original_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Mnist_set/Mnist_test_image.npy').reshape(-1,28,28,1) 
-y_original_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Mnist_set/Mnist_test_label.npy')    
+x_original_test = np.load(str(your_path) + '/FI_Image_Choose/Mnist_set/Mnist_test_image.npy').reshape(-1,28,28,1) 
+y_original_test = np.load(str(your_path) + '/FI_Image_Choose/Mnist_set/Mnist_test_label.npy')    
 
 
 def res_32(img_input):
@@ -157,7 +158,7 @@ def res_32(img_input):
 
 
 # load model
-resnet = load_model('/your_path_to_main_dir/FI_Image_Choose/my_resnet_32_mnist.h5')
+resnet = load_model(str(your_path) + '/FI_Image_Choose/my_resnet_32_mnist.h5')
 
 # set optimizer
 sgd = optimizers.SGD(lr=.001, momentum=0.9, nesterov=True)
