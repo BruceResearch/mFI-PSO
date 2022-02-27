@@ -13,22 +13,23 @@ K.set_learning_phase(0)
 # hyper parameter
 epsilon = 1e-3
 n_class = 10
+your_path = '/your_path_to_main_dir'
 
 def cifar_pixel_FI(road_str,pic_num,target_class,sheet_id = 2):
     # load images
     if sheet_id == 3:
-        x_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_test_image.npy').reshape(-1, 32, 32, 3)  # (10000, 32 32, 3)
-        y_test = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_test_label.npy')
+        x_test = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_test_image.npy').reshape(-1, 32, 32, 3)  # (10000, 32 32, 3)
+        y_test = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_test_label.npy')
         x_adv = x_test[int(pic_num)]    # x_adv (32, 32, 3)
         y_adv = y_test[int(pic_num)]
     else:
-        x_train = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_train_image.npy').reshape(-1, 32, 32, 3)  # (50000, 32 32, 3)
-        y_train = np.load('/your_path_to_main_dir/FI_Image_Choose/Cifar_set/Cifar_train_label.npy')  # (50000, 10)
+        x_train = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_train_image.npy').reshape(-1, 32, 32, 3)  # (50000, 32 32, 3)
+        y_train = np.load(str(your_path) + '/FI_Image_Choose/Cifar_set/Cifar_train_label.npy')  # (50000, 10)
         x_adv = x_train[int(pic_num)]   # x_adv (32, 32, 3)
         y_adv = y_train[int(pic_num)]
 
     # load model
-    resnet32 = load_model('/your_path_to_main_dir/FI_Image_Choose/my_resnet_32_cifar.h5')
+    resnet32 = load_model(str(your_path) + '/FI_Image_Choose/my_resnet_32_cifar.h5')
 
     # caulculating FI
     grad_K = tf.concat(axis=1, values=[tf.concat(axis=0, values=[K.flatten(b)[..., None] for b in K.gradients(resnet32.output[0, k], resnet32.input)]) for k in range(n_class)])
