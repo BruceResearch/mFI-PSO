@@ -43,5 +43,6 @@ Directory Calculating_Actual_Perturbation:
 10.calculating_perturabtion_cifar.py / 10.calculating_perturabtion_mnist.py: calculate the actual max absolute difference summary statistics between the original image and adversarial images.
 
 
-
+### Step6:
+You may repeart Step 1 (2,3,4), Step 2, and Step 3 to reattack the defense trained network to see the improvement in the model robustness.
 
