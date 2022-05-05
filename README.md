@@ -34,21 +34,21 @@ Directory Adv_Image_Generation:
 `5.Cifar_adv_set_make_PSO.py` / `5.Mnist_adv_set_make_PSO.py`: use PSO to make adversarial images.
 `6.make_adv_dataset_cifar.py` / `6.make_adv_dataset_mnist.py` : concatenate every adversarial image and target into one npy file.
 
-### Step3:
+### Step 3:
 Directory Sucess_Rate:
 `7.success_rate_cifar.py` / `7.success_rate_mnist.py`: calculate the success rate of the generated adversarial images.
 
-### Step4:
+### Step 4:
 Directory Defense_Training:
 `8.mix_original_adv_data_cifar.py` / `8.mix_original_adv_data_mnist.py`: mix the original training and testing data with adversarial training and testing images.
 `9.defense_training_cifar.py` / `9.defense_training_mnist.py` : retrain the original trained model with the mix of original and adversarial images.
 
-### Step5:
+### Step 5:
 Directory Calculating_Actual_Perturbation:
 `10.calculating_perturabtion_cifar.py` / `10.calculating_perturabtion_mnist.py`: calculate the actual max absolute difference summary statistics between the original image and adversarial images.
 
 
-### Step6:
+### Step 6:
 You may repeat Step 1 (2,3,4), Step 2, and Step 3 to re-attack the defense trained network to see the improvement in the model robustness.
 
 ## Citations
