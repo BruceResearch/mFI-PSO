@@ -1,5 +1,5 @@
 # mFI-PSO — Adversarial Image Generation and Training for Deep Neural Networks
-This repo is the official implementation for [Adversarial Image Generation and Training for Deep Neural Networks](https://arxiv.org/pdf/2006.03243.pdf).
+This repo is the official implementation for [mFI-PSO: A Flexible and Effective Method in Adversarial Image Generation for Deep Neural Networks](https://arxiv.org/pdf/2006.03243.pdf).
 
 ![plot](./image/CIFAR10comparison.jpg)
 
@@ -53,21 +53,10 @@ You may repeat Step 1 (2,3,4), Step 2, and Step 3 to re-attack the defense train
 
 ## Citations
 ```bibtex
-@article{DBLP:journals/corr/abs-2006-03243,
-  author    = {Ronghua Shi and
-               Hai Shu and
-               Hongtu Zhu and
-               Ziqi Chen},
-  title     = {Adversarial Image Generation and Training for Deep Convolutional Neural
-               Networks},
-  journal   = {CoRR},
-  volume    = {abs/2006.03243},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2006.03243},
-  eprinttype = {arXiv},
-  eprint    = {2006.03243},
-  timestamp = {Thu, 14 Oct 2021 09:18:00 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2006-03243.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{Shu2022,
+  title={Sensitivity analysis of deep neural networks},
+  author={Shu, Hai and Shi, Ronghua and Jia, Qiran and Zhu, Hongtu and Chen, Ziqi},
+  booktitle={2022 International Joint Conference on Neural Networks (IJCNN)},
+  year={2022}
 }
 ```
