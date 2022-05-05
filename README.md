@@ -17,6 +17,9 @@ This repo is the official implementation for [Adversarial Image Generation and T
 Every executable file has a name that starts with a number, and this number also indicates the proper order to run the corresponding file starting from 0 to 10.
 Please substitute '/your_path_to_main_dir/' to your actual path to the main directory in the executable files.
 
+### Environment
+Please prepare an environment with python=3.9, and then use the command "pip install -r requirements.txt" for the dependencies.
+
 ### Step 1:
 Directory FI_Image_Choose:
 `0.Cifar_set_make.py` / `0.Mnist_set_make.py`: download the datasets and properly preprocess them.
