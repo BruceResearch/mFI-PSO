@@ -52,6 +52,7 @@ Directory Calculating_Actual_Perturbation:
 You may repeart Step 1 (2,3,4), Step 2, and Step 3 to reattack the defense trained network to see the improvement in the model robustness.
 
 ## Citations
+```bibtex
 @article{DBLP:journals/corr/abs-2006-03243,
   author    = {Ronghua Shi and
                Hai Shu and
@@ -69,3 +70,4 @@ You may repeart Step 1 (2,3,4), Step 2, and Step 3 to reattack the defense train
   biburl    = {https://dblp.org/rec/journals/corr/abs-2006-03243.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
+```
