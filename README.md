@@ -51,3 +51,21 @@ Directory Calculating_Actual_Perturbation:
 ### Step6:
 You may repeart Step 1 (2,3,4), Step 2, and Step 3 to reattack the defense trained network to see the improvement in the model robustness.
 
+## Citations
+@article{DBLP:journals/corr/abs-2006-03243,
+  author    = {Ronghua Shi and
+               Hai Shu and
+               Hongtu Zhu and
+               Ziqi Chen},
+  title     = {Adversarial Image Generation and Training for Deep Convolutional Neural
+               Networks},
+  journal   = {CoRR},
+  volume    = {abs/2006.03243},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2006.03243},
+  eprinttype = {arXiv},
+  eprint    = {2006.03243},
+  timestamp = {Thu, 14 Oct 2021 09:18:00 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2006-03243.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
