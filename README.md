@@ -54,7 +54,7 @@ You may repeat Step 1 (2,3,4), Step 2, and Step 3 to re-attack the defense train
 ## Citations
 ```bibtex
 @inproceedings{Shu2022,
-  title={Sensitivity analysis of deep neural networks},
+  title={mFI-PSO: A Flexible and Effective Method in Adversarial Image Generation for Deep Neural Networks},
   author={Shu, Hai and Shi, Ronghua and Jia, Qiran and Zhu, Hongtu and Chen, Ziqi},
   booktitle={2022 International Joint Conference on Neural Networks (IJCNN)},
   year={2022}
