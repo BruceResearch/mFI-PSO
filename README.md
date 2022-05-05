@@ -1,6 +1,8 @@
 # Adversarial Image Generation and Training for Deep Neural Networks
 This repo is the official implementation for [Adversarial Image Generation and Training for Deep Neural Networks](https://arxiv.org/pdf/2006.03243.pdf).
 
+![plot](./image/CIFAR10comparison.jpg)
+
 ## Requirements
 - keras 2.4.0
 - tensorflow 2.3.0
