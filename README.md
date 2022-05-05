@@ -49,7 +49,7 @@ Directory Calculating_Actual_Perturbation:
 
 
 ### Step6:
-You may repeart Step 1 (2,3,4), Step 2, and Step 3 to reattack the defense trained network to see the improvement in the model robustness.
+You may repeat Step 1 (2,3,4), Step 2, and Step 3 to re-attack the defense trained network to see the improvement in the model robustness.
 
 ## Citations
 ```bibtex
