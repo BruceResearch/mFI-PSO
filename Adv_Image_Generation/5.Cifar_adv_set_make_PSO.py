@@ -7,7 +7,7 @@ import Cifar_PSO_critical_point_adv_make
 sheet_id = 2
 
 your_path = '/your_path_to_main_dir'
-array_pic_num_cifar_all = np.load(str(your_path) + '/FI_Image_Choose/adv_info/sample_info/Cifar_sheet(%d)_situation(1)_FI_below(0.20)_pro_y_target(0.01)_array.npy'%(sheet_id))
+array_pic_num_cifar_all = np.load(str(your_path) + '/FI_Image_Choose/adv_info/sample_info/Cifar_sheet(%d)_situation(1)_FI_below(0.01)_pro_y_target(0.01)_array.npy'%(sheet_id))
 
 
 cut_start = 0
@@ -35,7 +35,7 @@ for i_pic in range(cut_start,cut_end,1):
             pixel_FI_array_flag[0][i] = 1
     m = np.count_nonzero(pixel_FI_array_flag.reshape(1, -1), axis=1)[0]  
 
-    road_str_adv_i =  str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.20)_pro_y_target(0.10)_POS_critical_point_adv' %(i_pic,pic_num_i, sheet_id)
+    road_str_adv_i =  str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.01)_pro_y_target(0.10)_POS_critical_point_adv' %(i_pic,pic_num_i, sheet_id)
 
     # making adv
     x_adv_of_i, y_adv_of_i  = Cifar_PSO_critical_point_adv_make.PSO_critical_point(pic_num=pic_num_i,
@@ -44,7 +44,7 @@ for i_pic in range(cut_start,cut_end,1):
                                                                       target_class=target_class_i,
                                                                       road_str_adv = road_str_adv_i,
                                                                       sheet_id=sheet_id)  # (1,3073) #(0: success_flag  , 1~3072: x_adv)
-    np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/x/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.20)_pro_y_target(0.10)_POS_critical_point_adv_array.npy' % (i_pic,pic_num_i, sheet_id),x_adv_of_i)
-    np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/y/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.20)_pro_y_target(0.10)_POS_critical_point_adv_array.npy' % (i_pic,pic_num_i, sheet_id),y_adv_of_i)
+    np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/x/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.01)_pro_y_target(0.10)_POS_critical_point_adv_array.npy' % (i_pic,pic_num_i, sheet_id),x_adv_of_i)
+    np.save(str(your_path) + '/FI_Image_Choose/adv_info/adv_Cifar/train/y/adv(%d)_Cifar(%d)_sheet(%d)_situation(1)_FI_below(0.01)_pro_y_target(0.10)_POS_critical_point_adv_array.npy' % (i_pic,pic_num_i, sheet_id),y_adv_of_i)
 
 
