@@ -1,5 +1,5 @@
 # mFI-PSO — Adversarial Image Generation and Training for Deep Neural Networks
-This repo is the official implementation for [mFI-PSO: A Flexible and Effective Method in Adversarial Image Generation for Deep Neural Networks](https://arxiv.org/pdf/2006.03243.pdf).
+This repo is the official implementation for [mFI-PSO: A Flexible and Effective Method in Adversarial Image Generation for Deep Neural Networks](https://arxiv.org/pdf/2006.03243.pdf). (Accepted by 2022 International Joint Conference on Neural Networks (IJCNN))
 
 ![plot](./image/CIFAR10comparison.jpg)
 
